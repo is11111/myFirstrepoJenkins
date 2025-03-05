@@ -1,0 +1,17 @@
+pipeline {
+    agent any
+    tools {
+        maven "MAVEN"
+    }
+
+    stages {
+        stage('Build') {
+            steps {
+                echo 'Buiild Start'
+                checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/is11111/myFirstrepoJenkins.git']])
+                sh 'mvn -B -DskipTests clean package'
+                echo   'Build Finished'
+            }
+        }
+    }
+}
